@@ -1,23 +1,6 @@
-/// ****************** FILE INFO ******************
-/// File Name: shopping_cart_test.dart
-/// Purpose: Widget tests for ShoppingCart behavior (add/remove/totals/edge cases)
-/// Author: Mohamed Elrashidy
-/// Created At: 18/10/2025
-///
-/// Function Name: main
-///
-/// Purpose: Runs widget tests verifying ShoppingCart operations and edge cases.
-///
-/// Parameters:
-/// - none
-///
-/// Returns: void
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_testing_lab/widgets/shopping_cart.dart';
-
-// Note: _ShoppingCartState is private; tests access the state via tester.state(...) and cast to dynamic.
 
 void main() {
   group('ShoppingCart widget tests', () {

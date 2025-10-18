@@ -1,9 +1,3 @@
-/// ****************** FILE INFO ******************
-/// File Name: user_registration_form_test.dart
-/// Purpose: Widget tests for user registration form behavior and validation
-/// Author: Mohamed Elrashidy
-/// Created At: 17/10/2025
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_testing_lab/widgets/user_registration_form.dart';

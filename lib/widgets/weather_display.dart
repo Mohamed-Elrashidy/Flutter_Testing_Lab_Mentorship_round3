@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
 
+double celsiusToFahrenheit(double celsius) {
+  return celsius * 9 / 5 + 32;
+}
+
+double fahrenheitToCelsius(double fahrenheit) {
+  return (fahrenheit - 32) * 5 / 9;
+}
+
 class WeatherDisplay extends StatefulWidget {
   const WeatherDisplay({super.key});
 
@@ -16,15 +24,6 @@ class _WeatherDisplayState extends State<WeatherDisplay> {
 
   final List<String> _cities = ['New York', 'London', 'Tokyo', 'Invalid City'];
 
-  double celsiusToFahrenheit(double celsius) {
-    return celsius * 9 / 5;
-  }
-
-  double fahrenheitToCelsius(double fahrenheit) {
-    return fahrenheit - 32 * 5 / 9;
-  }
-
-  // Simulate API call that sometimes returns null or malformed data
   Future<Map<String, dynamic>?> _fetchWeatherData(String city) async {
     await Future.delayed(const Duration(seconds: 2));
 
@@ -32,9 +31,8 @@ class _WeatherDisplayState extends State<WeatherDisplay> {
       return null;
     }
 
-    
     if (DateTime.now().millisecond % 4 == 0) {
-      return {'city': city, 'temperature': 22.5}; 
+      return {'city': city, 'temperature': 22.5};
     }
 
     return {
@@ -57,10 +55,15 @@ class _WeatherDisplayState extends State<WeatherDisplay> {
       });
     }
 
-    
     final data = await _fetchWeatherData(_selectedCity);
     setState(() {
-      _weatherData = WeatherData.fromJson(data); 
+      try {
+        _weatherData = WeatherData.fromJson(data);
+      } catch (e) {
+        _error = 'Failed to load weather data.';
+        _weatherData = null;
+      }
+
       _isLoading = false;
     });
   }
@@ -78,7 +81,6 @@ class _WeatherDisplayState extends State<WeatherDisplay> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // City selection
           Row(
             children: [
               const Text('City: '),
@@ -108,8 +110,6 @@ class _WeatherDisplayState extends State<WeatherDisplay> {
             ],
           ),
           const SizedBox(height: 16),
-
-          // Temperature unit toggle
           Row(
             children: [
               const Text('Temperature Unit:'),
@@ -126,10 +126,8 @@ class _WeatherDisplayState extends State<WeatherDisplay> {
             ],
           ),
           const SizedBox(height: 16),
-
           if (_isLoading && _error == null)
             const Center(child: CircularProgressIndicator())
-          
           else if (_weatherData != null)
             Card(
               elevation: 4,
@@ -199,8 +197,7 @@ class _WeatherDisplayState extends State<WeatherDisplay> {
                   ],
                 ),
               ),
-            )
-          
+            ),
         ],
       ),
     );
@@ -238,15 +235,14 @@ class WeatherData {
     required this.icon,
   });
 
-  
   factory WeatherData.fromJson(Map<String, dynamic>? json) {
     return WeatherData(
       city: json!['city'],
       temperatureCelsius: json['temperature'].toDouble(),
       description: json['description'],
-      humidity: json['humidity'], 
-      windSpeed: json['windSpeed'].toDouble(), 
-      icon: json['icon'], 
+      humidity: json['humidity'],
+      windSpeed: json['windSpeed'].toDouble(),
+      icon: json['icon'],
     );
   }
 }

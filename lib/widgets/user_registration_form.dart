@@ -1,9 +1,3 @@
-/// ****************** FILE INFO ******************
-/// File Name: user_registration_form.dart
-/// Purpose: Provide a user registration form with validation and guarded submission
-/// Author: Mohamed Elrashidy
-/// Created At: 17/10/2025
-
 import 'package:flutter/material.dart';
 import 'package:flutter_testing_lab/core/helpers/validator.dart';
 
@@ -24,14 +18,6 @@ class _UserRegistrationFormState extends State<UserRegistrationForm> {
   bool _isLoading = false;
   String _message = '';
 
-  /// Function Name: isValidEmail
-  ///
-  /// Purpose: Validate email string using a regex pattern
-  ///
-  /// Parameters:
-  /// - email: the email string to validate
-  ///
-  /// Returns: bool indicating if email is valid
   bool isValidEmail(String email) {
     final emailRegExp = RegExp(
       r'^[\w\-.]+@([\w\-]+\.)+[\w\-]{2,}$',
@@ -40,14 +26,6 @@ class _UserRegistrationFormState extends State<UserRegistrationForm> {
     return emailRegExp.hasMatch(email);
   }
 
-  /// Function Name: isValidPassword
-  ///
-  /// Purpose: Validate password strength (at least 8 chars, contains a digit and a symbol)
-  ///
-  /// Parameters:
-  /// - password: the password string to validate
-  ///
-  /// Returns: bool indicating if password meets criteria
   bool isValidPassword(String password) {
     if (password.length < 8) return false;
     if (!RegExp(r'\d').hasMatch(password)) return false;
@@ -55,21 +33,12 @@ class _UserRegistrationFormState extends State<UserRegistrationForm> {
     return true;
   }
 
-  /// Function Name: _submitForm
-  ///
-  /// Purpose: Perform submission logic (shows loading, simulates API call, sets message)
-  ///
-  /// Parameters:
-  /// - none
-  ///
-  /// Returns: Future<void>
   Future<void> _submitForm() async {
     setState(() {
       _isLoading = true;
       _message = '';
     });
 
-    // Simulate API call
     await Future.delayed(const Duration(seconds: 2));
 
     setState(() {
@@ -78,14 +47,6 @@ class _UserRegistrationFormState extends State<UserRegistrationForm> {
     });
   }
 
-  /// Function Name: build
-  ///
-  /// Purpose: Build the registration form UI
-  ///
-  /// Parameters:
-  /// - context: BuildContext for widget building
-  ///
-  /// Returns: Widget
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -160,7 +121,6 @@ class _UserRegistrationFormState extends State<UserRegistrationForm> {
               onPressed: _isLoading
                   ? null
                   : () async {
-                      // Validate form first; do not submit until all validators pass
                       if (!(_formKey.currentState?.validate() ?? false)) {
                         setState(() {
                           _message = 'Please fix the errors before submitting.';
@@ -197,14 +157,6 @@ class _UserRegistrationFormState extends State<UserRegistrationForm> {
     );
   }
 
-  /// Function Name: dispose
-  ///
-  /// Purpose: Dispose controllers to free resources
-  ///
-  /// Parameters:
-  /// - none
-  ///
-  /// Returns: void
   @override
   void dispose() {
     _emailController.dispose();

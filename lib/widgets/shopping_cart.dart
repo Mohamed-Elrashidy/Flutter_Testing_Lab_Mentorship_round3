@@ -6,7 +6,7 @@ class CartItem {
   final double price;
   int quantity;
   final double discount;
-  final int maxQuantity; // Discount percentage (0.0 to 1.0)
+  final int maxQuantity;
 
   CartItem({
     required this.id,
@@ -32,7 +32,6 @@ class _ShoppingCartState extends State<ShoppingCart> {
     String id,
     String name,
     int maxQuantity,
-
     double price, {
     double discount = 0.0,
   }) {
@@ -139,7 +138,6 @@ class _ShoppingCartState extends State<ShoppingCart> {
           ],
         ),
         const SizedBox(height: 16),
-
         Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
@@ -177,7 +175,6 @@ class _ShoppingCartState extends State<ShoppingCart> {
           ),
         ),
         const SizedBox(height: 16),
-
         _items.isEmpty
             ? const Center(child: Text('Cart is empty'))
             : ListView.builder(
